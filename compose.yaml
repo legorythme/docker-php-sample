@@ -71,7 +71,7 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/db-password
       - MARIADB_DATABASE=example
-    # utiliser `expose` ici spécifie que vous voulez rendre ce port disponible pour les autres services de l'application stack
+    # utiliser `expose` ici spécifie que vous voulez rendre ce port disponible pour les atures services de l'application stack
     expose:
       - 3306
     healthcheck:
@@ -79,6 +79,16 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - PMA_HOST=db
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
