@@ -28,9 +28,9 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $count = $row['count'];
 $db_handle->exec("
  INSERT INTO messages (message)
- SELECT CONCAT('message-', '$count')
+ SELECT CONCAT('message - ', '$count')
  WHERE NOT EXISTS (
-  SELECT 1 FROM messages WHERE message = CONCAT('message-', '$count')
+  SELECT 1 FROM messages WHERE message = CONCAT('message - ', '$count')
  )
 ");
 
